@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Mietta Levingston - Engineering Portfolio</title>
+<meta name="description" content="Engineering project portfolio." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <span class="name">Mietta Levingston</span>
+      <span class="role">Final Year Mechanical Engineering (Honours) & Arts (Economics) Student</span>
+    </div>
+    <nav class="links">
+      <a href="#work">Work</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero" id="hero"></section>
+
+  <div class="section-label" id="work">
+    <span class="tag">Engineering</span>
+  </div>
+
+  <div class="grid" id="project-grid"></div>
+</div>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
+    <span>© <span id="year"></span> Mietta Levingston</span>
+    <span>
+      <a href="mailto:you@email.com">you@email.com</a> ·
+      <a href="https://github.com/yourname" target="_blank" rel="noopener">GitHub</a> ·
+      <a href="https://linkedin.com/in/yourname" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+<script src="projects.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Hero ----
+  document.getElementById('hero').innerHTML = `
+    <div class="hero-photo">
+      ${HERO.photo
+        ? `<img src="${HERO.photo}" alt="${HERO.name}" />`
+        : `<div class="placeholder-note">ADD A HERO PHOTO → set HERO.photo in projects.js</div>`}
+      <div class="scrim"></div>
+      <div class="hero-content">
+        <div class="eyebrow">${HERO.eyebrow}</div>
+        <h1>${HERO.name}</h1>
+        <p class="sub">${HERO.subtitle}</p>
+        <div class="hero-buttons">
+          <a class="btn-solid" href="${HERO.primaryButton.href}">${HERO.primaryButton.label}</a>
+          <a class="btn-outline" href="${HERO.secondaryButton.href}">${HERO.secondaryButton.label}</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // ---- Project grid ----
+  const grid = document.getElementById('project-grid');
+
+  grid.innerHTML = PROJECTS.map(p => `
+    <a class="card" href="project.html?id=${encodeURIComponent(p.id)}">
+      <div class="thumb">
+        ${p.thumbnail
+          ? `<img src="${p.thumbnail}" alt="${p.title}" loading="lazy" />`
+          : `<div class="placeholder-grid">ADD IMAGE →</div>`}
+      </div>
+      <div class="body">
+        <div class="year">${p.year}</div>
+        <h3>${p.title}</h3>
+        <div class="pills">
+          ${p.stack.map(s => `<span>${s}</span>`).join('')}
+        </div>
+      </div>
+    </a>
+  `).join('');
+</script>
+
+</body>
+</html>
